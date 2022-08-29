@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+               引用类型的自动注入：spring框架根据规则可以给引用类型赋值。不用在手动注入
+               使用规则的是byName，byType
+               1、byName(按照名称注入)：java类中的引用类型的属性名和spring容器中（配置文件）<bean>的id名称一样
+               且数据类型是一致的，这样的容器中的bean，spring能够赋值给引用类型
+               语法规则：
+               <bean id = "xx" class = "yyy" autowire="byName">
+               简单类型属性赋值
+               </bean>
+
+               2、byType(按照类型注入)：java类中引用类型的数据类型和spring容器中（配置文件）<bean>的class属性
+                                    是同源关系，这样bean 能够赋值给引用类型
+                 同源就是一类的意思：
+                 1、java类中引用类型的数据类型和bean的class的值是一样的。
+                 2、java类中引用类型的数据类型和bean的class的值父子类关系。
+                 3、java类中引用类型的数据类型和bean的class的值接口和实现类的关系
+                 语法规则：
+                <bean id = "xx" class = "yyy" autowire="byType">
+                简单类型属性赋值
+                </bean>
+                注意：在byType中，在xml配置文件中声明bean只能有一个符合条件的
+                多余就会出错
+            -->
+    <!-- byName   -->
+    <bean id="myStudent" class="com.swt.ba05.Student" autowire="byType" >
+        <property name="name" value="byType"/>
+        <property name="age" value="28"/>
+        <!-- 引用类型 -->
+<!--        <property name="school" ref="school"/>&lt;!&ndash;setSchool(mySchool) &ndash;&gt;-->
+
+
+    </bean>
+<!--&lt;!&ndash;    声明School对象   同源关系第一种&ndash;&gt;-->
+<!--    <bean id="mySchool" class="com.swt.ba05.School">-->
+<!--        <property name="name" value="byType人民大学"/>-->
+<!--        <property name="address" value="北京的海淀区"/>-->
+<!--    </bean>-->
+<!--    声明School 的子类同源关系第二种-->
+    <bean id="mySchool" class="com.swt.ba05.PrimarySchool">
+        <property name="name" value="北京小学"/>
+        <property name="address" value="北小路"/>
+    </bean>
+
+
+</beans>
